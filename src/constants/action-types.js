@@ -1,0 +1,2 @@
+export const INIT_FROM_SAVED = 'INIT_FROM_SAVED';
+export const EDIT_CONTENT = 'EDIT_CONTENT';
