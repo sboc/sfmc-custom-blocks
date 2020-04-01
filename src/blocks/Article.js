@@ -25,6 +25,17 @@ class Article extends React.Component {
         sdk.setContent(html);
     };
 
+    componentDidMount = () => {
+        if (!this.props.content) {
+            this.props.initFromSaved({
+                content: {
+                    headline: "default headline",
+                    textBody: "default text body"
+                }
+            });
+        }
+    };
+
     render() {
         this.setContent();
         return (
