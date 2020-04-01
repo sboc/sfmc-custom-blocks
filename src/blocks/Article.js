@@ -36,7 +36,8 @@ class Article extends React.Component {
     componentDidMount = () => {
         console.log("Article.mounted");
         sdk.getData(data => {
-            if (data) {
+            console.log(JSON.stringify(data));
+            if (data && Object.keys(data).length > 0) {
                 this.props.initFromSaved(data);
             } else {
                 this.props.initFromSaved({
