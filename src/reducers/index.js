@@ -6,7 +6,6 @@ const initialState = {
 };
 
 function rootReducer(state = initialState, action) {
-    console.log(JSON.stringify(action));
     if (action.type === INIT_FROM_SAVED && action.value && Object.keys(action.value).length > 0) {
         let newState = JSON.parse(JSON.stringify(state));
         newState = action.value;
