@@ -1,4 +1,5 @@
 import { createStore, applyMiddleware } from "redux";
+import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from "../reducers/index";
 
 var SDK = require("blocksdk");
@@ -14,5 +15,9 @@ const setDataMiddleware = store => next => action => {
     });
 };
 
-const store = createStore(rootReducer, applyMiddleware(setDataMiddleware));
+const composeEnhancers = composeWithDevTools({
+    trace: true,
+    traceLimit: 25
+});
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(setDataMiddleware)));
 export default store;
