@@ -18,17 +18,26 @@ class Article extends React.Component {
     };
 
     setContent = () => {
-        let regex;
+        let pattern;
         let html = LAYOUT;
 
-        regex = /\[headline\]/gi;
-        html = html.replace(regex, this.props.content.headline);
+        // In case we have a working color
+        if (this.props.content.headlineWorkingColor) {
+            html = html.replace(
+                new RegExp("\\[headlineColor\\]", "gi"),
+                this.props.content.headlineWorkingColor
+            );
+        }
 
-        regex = /\[headlineColor\]/gi;
-        html = html.replace(regex, this.props.content.headlineColor);
-
-        regex = /\[textBody\]/gi;
-        html = html.replace(regex, this.props.content.textBody);
+        // Auto version
+        let keys = Object.keys(this.props.content);
+        for (let i = 0; i < keys.length; i++) {
+            pattern = `\\[${keys[i]}\\]`;
+            html = html.replace(
+                new RegExp(pattern, "gi"),
+                this.props.content[keys[i]]
+            );
+        }
 
         sdk.setContent(html);
     };
@@ -74,8 +83,17 @@ class Article extends React.Component {
                     events={{
                         onChange: (event, data) => {
                             this.onChange("headlineColor", data.color);
+                        },
+                        onWorkingColorChange: (event, data) => {
+                            this.onChange(
+                                "headlineWorkingColor",
+                                data.color.hex
+                            );
                         }
                     }}
+                    onClose={() =>
+                        this.onChange("headlineWorkingColor", undefined)
+                    }
                 />
             </Card>
         );
