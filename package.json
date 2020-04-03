@@ -40,6 +40,10 @@
     ]
   },
   "devDependencies": {
+    "jest-canvas-mock": "^2.2.0",
     "react-app-rewired": "^2.1.5"
+  },
+  "jest": {
+    "setupFiles": ["jest-canvas-mock"]
   }
 }
