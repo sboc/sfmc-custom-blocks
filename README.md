@@ -1,6 +1,8 @@
+# A Salesforce Marketing Cloud custom content block boilerplate.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). The app uses [Redux](https://redux.js.org/basics/usage-with-react), [React Router](https://redux.js.org/advanced/usage-with-react-router), the [Salesforce BlockSDK](https://github.com/salesforce-marketingcloud/blocksdk) and the [Lightning Design System for React](https://react.lightningdesignsystem.com).
 
-A default block has been added to the solution illustrating the basic usage. The blovc is called Article and located in `src/blocks`. Look at this when creating new blocks. The idea is that all blocks have a related layout located in thr `src/blocks/layouts` folder. When creating a new block take the following steps:
+A default block has been added to the solution illustrating the basic usage. The blocks is called Article and located in `src/blocks`. Look at this when creating new blocks. The idea is that all blocks have a related layout located in thr `src/blocks/layouts` folder. When creating a new block take the following steps:
 
 1. Create the block layout in `src/blocks/layouts`.
 2. Create the block component in `src/blocks`.
