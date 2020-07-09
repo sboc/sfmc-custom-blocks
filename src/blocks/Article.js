@@ -8,12 +8,14 @@ import {
 import { connect } from "react-redux";
 import { mapStateToProps, mapDispatchToProps } from "../core/helpers";
 import { LAYOUT } from "./layouts/article";
+import RichTextEditor from '../components/RichTextEditor';
 
 var SDK = require("blocksdk");
 var sdk = new SDK();
 
 class Article extends React.Component {
     onChange = (element, value) => {
+        console.log(value);
         this.props.editContent(element, value);
     };
 
@@ -95,6 +97,8 @@ class Article extends React.Component {
                         this.onChange("headlineWorkingColor", undefined)
                     }
                 />
+                <RichTextEditor onChange={(data) => this.onChange('rte', data)} label="Rich Text" html={this.props.content.rte} />
+
             </Card>
         );
     }
