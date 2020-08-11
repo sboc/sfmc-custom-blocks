@@ -47,7 +47,6 @@ class Article extends React.Component {
             });
 
             html = html.replace('[richText]', richText);
-            console.log(html);
         }
 
         // Auto version
