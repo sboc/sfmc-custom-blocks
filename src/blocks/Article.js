@@ -3,19 +3,18 @@ import {
     Card,
     Input,
     Textarea,
-    ColorPicker
+    ColorPicker,
 } from "@salesforce/design-system-react";
 import { connect } from "react-redux";
 import { mapStateToProps, mapDispatchToProps } from "../core/helpers";
 import { LAYOUT } from "./layouts/article";
-import RichTextEditor from '../components/RichTextEditor';
+import RichTextEditor from "../components/RichTextEditor";
 
 var SDK = require("blocksdk");
 var sdk = new SDK();
 
 class Article extends React.Component {
     onChange = (element, value) => {
-        console.log(value);
         this.props.editContent(element, value);
     };
 
@@ -45,7 +44,7 @@ class Article extends React.Component {
     };
 
     componentDidMount = () => {
-        sdk.getData(data => {
+        sdk.getData((data) => {
             if (data && Object.keys(data).length > 0) {
                 this.props.initFromSaved(data);
             } else {
@@ -53,8 +52,8 @@ class Article extends React.Component {
                     content: {
                         headline: "default headline",
                         textBody: "default text body",
-                        headlineColor: "#000000"
-                    }
+                        headlineColor: "#000000",
+                    },
                 });
             }
         });
@@ -67,14 +66,14 @@ class Article extends React.Component {
                 <Input
                     label="Headline"
                     value={this.props.content.headline}
-                    onChange={event => {
+                    onChange={(event) => {
                         this.onChange("headline", event.target.value);
                     }}
                 />
                 <Textarea
                     label="Text Body"
                     value={this.props.content.textBody}
-                    onChange={event => {
+                    onChange={(event) => {
                         this.onChange("textBody", event.target.value);
                     }}
                 />
@@ -91,14 +90,21 @@ class Article extends React.Component {
                                 "headlineWorkingColor",
                                 data.color.hex
                             );
-                        }
+                        },
                     }}
                     onClose={() =>
                         this.onChange("headlineWorkingColor", undefined)
                     }
                 />
-                <RichTextEditor onChange={(data) => this.onChange('rte', data)} label="Rich Text" html={this.props.content.rte} />
-
+                <RichTextEditor
+                    onChange={(data) => this.onChange("rte", data)}
+                    label="Rich Text"
+                    key="rte"
+                    html={this.props.content.rte}
+                    toggleBold={true}
+                    toggleItalic={true}
+                    toggleLink={true}
+                />
             </Card>
         );
     }
