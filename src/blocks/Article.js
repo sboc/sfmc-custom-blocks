@@ -39,7 +39,7 @@ class Article extends React.Component {
                 return result;
             });
 
-            let ireg = /\[I\](.+?)\[\/I\]/g;
+            let ireg = /\[i\](.+?)\[\/i\]/g;
             richText = richText.replace(ireg, (match, $1) => {
                 let result = `<i>${$1}</i>`;
                 return result;
