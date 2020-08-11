@@ -25,24 +25,23 @@ class Article extends React.Component {
         // Handle Rich Text Input
         if (this.props.content.rte) {
             let richText = this.props.content.rte;
-            var areg = /\[a url="([^"]+)"]([^[/a]+)\[\/a\]/g;
+            let areg = /\[a url="([^"]+)"](.+?)\[\/a\]/g;
             richText = richText.replace(areg, (match, $1, $2) => {
                 let result = `<a href="${$1}">${$2}</a>`;
                 console.log(result);
                 return result;
             });
 
-            var breg = /\[b]([^[/b]+)\[\/b\]/g;
+            let breg = /\[b\](.+?)\[\/b\]/g;
             richText = richText.replace(breg, (match, $1) => {
                 let result = `<b>${$1}</b>`;
                 console.log(result);
                 return result;
             });
 
-            var ireg = /\[i]([^[/i]+)\[\/i\]/g;
+            let ireg = /\[I\](.+?)\[\/I\]/g;
             richText = richText.replace(ireg, (match, $1) => {
                 let result = `<i>${$1}</i>`;
-                console.log(result);
                 return result;
             });
 

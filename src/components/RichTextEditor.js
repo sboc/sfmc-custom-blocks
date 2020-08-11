@@ -32,7 +32,7 @@ class RichTextEditor extends React.Component {
     onLinkClick = () => {
         let selectionStart = document.getElementById(this.rte_ref.current.generatedId).selectionStart;
         let selectionEnd = document.getElementById(this.rte_ref.current.generatedId).selectionEnd;
-        if (selectionEnd && selectionStart && selectionStart !== selectionEnd) {
+        if (selectionEnd && selectionStart >= 0 && selectionStart !== selectionEnd) {
             let url = prompt("Please enter your name");
             if (url) {
                 let selectionStart = document.getElementById(this.rte_ref.current.generatedId).selectionStart;
