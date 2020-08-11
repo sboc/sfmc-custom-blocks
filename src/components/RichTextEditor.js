@@ -30,14 +30,20 @@ class RichTextEditor extends React.Component {
     };
 
     onLinkClick = () => {
-        let url = prompt("Please enter your name");
         let selectionStart = document.getElementById(this.rte_ref.current.generatedId).selectionStart;
         let selectionEnd = document.getElementById(this.rte_ref.current.generatedId).selectionEnd;
-        let text = document.getElementById(this.rte_ref.current.generatedId).value.substring(selectionStart, selectionEnd);
-        text = `[a url="${url}"]${text}[/a]`;
-        let text_before = document.getElementById(this.rte_ref.current.generatedId).value.substring(0, selectionStart);
-        let text_after = document.getElementById(this.rte_ref.current.generatedId).value.substring(selectionEnd);
-        this.props.onChange(text_before + text + text_after);
+        if (selectionEnd && selectionStart && selectionStart !== selectionEnd) {
+            let url = prompt("Please enter your name");
+            if (url) {
+                let selectionStart = document.getElementById(this.rte_ref.current.generatedId).selectionStart;
+                let selectionEnd = document.getElementById(this.rte_ref.current.generatedId).selectionEnd;
+                let text = document.getElementById(this.rte_ref.current.generatedId).value.substring(selectionStart, selectionEnd);
+                text = `[a url="${url}"]${text}[/a]`;
+                let text_before = document.getElementById(this.rte_ref.current.generatedId).value.substring(0, selectionStart);
+                let text_after = document.getElementById(this.rte_ref.current.generatedId).value.substring(selectionEnd);
+                this.props.onChange(text_before + text + text_after);
+            }
+        }
     };
 
     onChange = (value) => {
@@ -81,7 +87,9 @@ class RichTextEditor extends React.Component {
                                         this.onLinkClick();
                                     }}
                                 />
-                            ) : <></>}
+                            ) : (
+                                <></>
+                            )}
                         </ButtonGroup>
                     ) : null}
                 </IconSettings>

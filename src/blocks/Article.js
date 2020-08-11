@@ -1,10 +1,5 @@
 import React from "react";
-import {
-    Card,
-    Input,
-    Textarea,
-    ColorPicker,
-} from "@salesforce/design-system-react";
+import { Card, Input, Textarea, ColorPicker } from "@salesforce/design-system-react";
 import { connect } from "react-redux";
 import { mapStateToProps, mapDispatchToProps } from "../core/helpers";
 import { LAYOUT } from "./layouts/article";
@@ -24,20 +19,42 @@ class Article extends React.Component {
 
         // In case we have a working color
         if (this.props.content.headlineWorkingColor) {
-            html = html.replace(
-                new RegExp("\\[headlineColor\\]", "gi"),
-                this.props.content.headlineWorkingColor
-            );
+            html = html.replace(new RegExp("\\[headlineColor\\]", "gi"), this.props.content.headlineWorkingColor);
+        }
+
+        // Handle Rich Text Input
+        if (this.props.content.rte) {
+            let richText = this.props.content.rte;
+            var areg = /\[a url="([^"]+)"]([^[/a]+)\[\/a\]/g;
+            richText = richText.replace(areg, (match, $1, $2) => {
+                let result = `<a href="${$1}">${$2}</a>`;
+                console.log(result);
+                return result;
+            });
+
+            var breg = /\[b]([^[/b]+)\[\/b\]/g;
+            richText = richText.replace(breg, (match, $1) => {
+                let result = `<b>${$1}</b>`;
+                console.log(result);
+                return result;
+            });
+
+            var ireg = /\[i]([^[/i]+)\[\/i\]/g;
+            richText = richText.replace(ireg, (match, $1) => {
+                let result = `<i>${$1}</i>`;
+                console.log(result);
+                return result;
+            });
+
+            html = html.replace('[richText]', richText);
+            console.log(html);
         }
 
         // Auto version
         let keys = Object.keys(this.props.content);
         for (let i = 0; i < keys.length; i++) {
             pattern = `\\[${keys[i]}\\]`;
-            html = html.replace(
-                new RegExp(pattern, "gi"),
-                this.props.content[keys[i]]
-            );
+            html = html.replace(new RegExp(pattern, "gi"), this.props.content[keys[i]]);
         }
 
         sdk.setContent(html);
@@ -86,25 +103,12 @@ class Article extends React.Component {
                             this.onChange("headlineColor", data.color);
                         },
                         onWorkingColorChange: (event, data) => {
-                            this.onChange(
-                                "headlineWorkingColor",
-                                data.color.hex
-                            );
+                            this.onChange("headlineWorkingColor", data.color.hex);
                         },
                     }}
-                    onClose={() =>
-                        this.onChange("headlineWorkingColor", undefined)
-                    }
+                    onClose={() => this.onChange("headlineWorkingColor", undefined)}
                 />
-                <RichTextEditor
-                    onChange={(data) => this.onChange("rte", data)}
-                    label="Rich Text"
-                    key="rte"
-                    html={this.props.content.rte}
-                    toggleBold={true}
-                    toggleItalic={true}
-                    toggleLink={true}
-                />
+                <RichTextEditor onChange={(data) => this.onChange("rte", data)} label="Rich Text" key="rte" html={this.props.content.rte} toggleBold={true} toggleItalic={true} toggleLink={true} />
             </Card>
         );
     }
