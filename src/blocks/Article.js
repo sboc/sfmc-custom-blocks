@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { mapStateToProps, mapDispatchToProps } from "../core/helpers";
 import { LAYOUT } from "./layouts/article";
 import RichTextEditor from "../components/RichTextEditor";
+import { richTextToHtml } from "../components/RichTextEditor";
 
 var SDK = require("blocksdk");
 var sdk = new SDK();
@@ -24,28 +25,7 @@ class Article extends React.Component {
 
         // Handle Rich Text Input
         if (this.props.content.rte) {
-            let richText = this.props.content.rte;
-            let areg = /\[a url="([^"]+)"](.+?)\[\/a\]/g;
-            richText = richText.replace(areg, (match, $1, $2) => {
-                let result = `<a href="${$1}">${$2}</a>`;
-                console.log(result);
-                return result;
-            });
-
-            let breg = /\[b\](.+?)\[\/b\]/g;
-            richText = richText.replace(breg, (match, $1) => {
-                let result = `<b>${$1}</b>`;
-                console.log(result);
-                return result;
-            });
-
-            let ireg = /\[i\](.+?)\[\/i\]/g;
-            richText = richText.replace(ireg, (match, $1) => {
-                let result = `<i>${$1}</i>`;
-                return result;
-            });
-
-            html = html.replace('[richText]', richText);
+            html = html.replace("[richText]", richTextToHtml(this.props.content.rte));
         }
 
         // Auto version
@@ -106,7 +86,7 @@ class Article extends React.Component {
                     }}
                     onClose={() => this.onChange("headlineWorkingColor", undefined)}
                 />
-                <RichTextEditor onChange={(data) => this.onChange("rte", data)} label="Rich Text" key="rte" html={this.props.content.rte} toggleBold={true} toggleItalic={true} toggleLink={true} />
+                <RichTextEditor onChange={(data) => this.onChange("rte", data)} label="Rich Text" text={this.props.content.rte} toggleBold={true} toggleItalic={true} toggleLink={true} />
             </Card>
         );
     }

@@ -95,7 +95,7 @@ class RichTextEditor extends React.Component {
                 </IconSettings>
                 <Textarea
                     ref={this.rte_ref}
-                    value={this.props.html}
+                    value={this.props.text}
                     onChange={(event) => {
                         this.onChange(event.target.value);
                     }}
@@ -106,3 +106,26 @@ class RichTextEditor extends React.Component {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RichTextEditor);
+
+export const richTextToHtml = (value) => {
+    let richText = value;
+    let areg = /\[a url="([^"]+)"](.+?)\[\/a\]/g;
+    richText = richText.replace(areg, (match, $1, $2) => {
+        let result = `<a href="${$1}">${$2}</a>`;
+        return result;
+    });
+
+    let breg = /\[b\](.+?)\[\/b\]/g;
+    richText = richText.replace(breg, (match, $1) => {
+        let result = `<b>${$1}</b>`;
+        return result;
+    });
+
+    let ireg = /\[i\](.+?)\[\/i\]/g;
+    richText = richText.replace(ireg, (match, $1) => {
+        let result = `<i>${$1}</i>`;
+        return result;
+    });
+
+    return richText;
+}
