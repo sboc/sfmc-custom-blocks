@@ -26,11 +26,12 @@ test("Render article ipnuts correctly", () => {
     const inputs = container.querySelectorAll("input");
     const textareas = container.querySelectorAll("textarea");
 
-    expect(labels.length).toBe(3);
+    expect(labels.length).toBe(4);
     expect(inputs.length).toBe(2);
-    expect(textareas.length).toBe(1);
+    expect(textareas.length).toBe(2);
 
     expect(labels[0].textContent).toBe("Headline");
     expect(labels[1].textContent).toBe("Text Body");
     expect(labels[2].textContent).toBe("Choose Headline Color");
+    expect(labels[3].textContent).toBe("Rich Text");
 });

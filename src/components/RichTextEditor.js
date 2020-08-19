@@ -60,6 +60,7 @@ class RichTextEditor extends React.Component {
                         <ButtonGroup>
                             {this.props.toggleBold ? (
                                 <Button
+                                    iconCategory="utility"
                                     iconName="bold"
                                     iconVariant="border"
                                     variant="icon"
@@ -70,6 +71,7 @@ class RichTextEditor extends React.Component {
                             ) : null}
                             {this.props.toggleItalic ? (
                                 <Button
+                                    iconCategory="utility"
                                     iconName="italic"
                                     iconVariant="border"
                                     variant="icon"
@@ -80,6 +82,7 @@ class RichTextEditor extends React.Component {
                             ) : null}
                             {this.props.toggleLink ? (
                                 <Button
+                                    iconCategory="utility"
                                     iconName="link"
                                     iconVariant="border"
                                     variant="icon"
@@ -128,4 +131,4 @@ export const richTextToHtml = (value) => {
     });
 
     return richText;
-}
+};
